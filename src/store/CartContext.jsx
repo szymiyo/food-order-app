@@ -8,9 +8,8 @@ const CartContext = createContext({
 
 function cartReducer(state, action) {
   if (action.type === 'ADD_ITEM') {
-    const existingCartItemIndex = state.items.findIndex((item) => {
-      item.id === action.item.id
-    });
+    const existingCartItemIndex = state.items.findIndex(
+      (item) => item.id === action.item.id);
 
     const updatedItems = [...state.items];
 
@@ -18,7 +17,7 @@ function cartReducer(state, action) {
       const existingItem = state.items[existingCartItemIndex]
       const updatedItem = {
         ...existingItem,
-        quantity: existingItem.quantity + 1,
+        quantity: existingItem.quantity + 1
       };
       updatedItems[existingCartItemIndex] = updatedItem;
     } else {
@@ -29,20 +28,20 @@ function cartReducer(state, action) {
   }
 
   if(action.type === 'REMOVE_ITEM') {
-    const existingCartItemIndex = state.items.findIndex((item) => {
-      item.id === action.item.id
-    });
+    const existingCartItemIndex = state.items.findIndex(
+      (item) => item.id === action.id
+    );
 
-    const existingCardItem = state.items[existingCartItemIndex];
+    const existingCartItem = state.items[existingCartItemIndex];
 
     const updatedItems = [...state.items];
 
-    if (existingCartItemIndex === 1) {
+    if (existingCartItem.quantity === 1) {
       updatedItems.splice(existingCartItemIndex, 1);
     } else {
       const updatedItem = {
-        ...existingCardItem,
-        quantity: existingCardItem.quantity - 1,
+        ...existingCartItem,
+        quantity: existingCartItem.quantity - 1,
       };
       updatedItems[existingCartItemIndex] = updatedItem;
     }
